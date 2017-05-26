@@ -6,6 +6,13 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('admin', function() {
+    this.route('newa', function() {
+      this.route('myCustomers');
+      this.route('operators');
+      this.route('customers');
+    });
+  });
 });
 
 export default Router;

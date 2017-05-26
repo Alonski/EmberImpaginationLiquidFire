@@ -1,0 +1,34 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<div style="
+    position: absolute;
+    top: 200px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+">
+    {{#impagination-dataset fetch=(route-action "fetch") on-object-at=(route-action "onObjectAt") on-init=(route-action
+        'initializeReadOffset') on-observe=(route-action "logDatasetState") page-size=model.pageSize as |records|}}
+        {{#if (eq records.length 0)}}
+            there-is-no-data-to-display
+        {{/if}}
+        {{#ember-collection class=listName items=records cell-layout=(percentage-columns-layout records.length model.columns 187)
+            as |account index|}}
+            Account Name: {{account.content.name}}
+            <div class="account-name">
+                {{#if account.content.foreignId}}
+                    (id: {{account.content.foreignId}})
+                {{else}}
+                    {{#if account.content.email}}
+                        (email: {{account.content.email}})
+                    {{else}}
+                        (email-not-set)
+                    {{/if}}
+                {{/if}}
+            </div>
+        {{/ember-collection}}
+    {{/impagination-dataset}}
+</div>

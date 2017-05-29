@@ -27,16 +27,6 @@ export default Ember.Mixin.create({
     activate() {
         this.send("setTitle", get(this, "title"));
     },
-    // resetController(controller, isExiting, transition) {
-    //     // console.log("controller ", controller);
-    //     // console.log("isExiting ", isExiting);
-    //     // console.log("transition ", transition);
-    //     // this._resetDataset();
-    //     get(this, "resetDatasetTask").perform();
-    //     //empty by default
-    //     //fires when route changes or model is refreshed
-    //     // isExiting property true when exiting (obviously)
-    // },
     actions: {
         initializeReadOffset(dataset) {
             // console.log("initializeReadOffset!");
@@ -70,29 +60,5 @@ export default Ember.Mixin.create({
     }).drop(),
     _resetDataset() {
         get(this, "dataset").reset(0);
-    },
-    _getFetchParams(pageOffset, pageSize) {
-        let sortBy = "updated";
-        let sortDirection = false;
-        let searchTerm = "";
-        let shouldSearchByForeignId = get(this.controller, "searchByForeignId");
-        let filterPackage = get(this.controller, "filterPackage");
-        let filterBIY = "";
-        //filter=&iLimitFrom=0&iLimitTo=15&sortDirection=false&sortType=updated
-        let params = {
-            filterBIY: filterBIY,
-            filterPackage: filterPackage,
-            iLimitFrom: pageOffset * pageSize,
-            iLimitTo: pageSize,
-            sortDirection: sortDirection,
-            sortType: sortBy
-        };
-
-        if (shouldSearchByForeignId) {
-            params["foreignId"] = searchTerm;
-        } else {
-            params["filter"] = searchTerm;
-        }
-        return params;
     }
 });
